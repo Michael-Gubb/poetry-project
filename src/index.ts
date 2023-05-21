@@ -2,9 +2,12 @@ import bodyParser from "body-parser";
 import express from "express";
 import { getTime } from "./repository/getTime";
 import { testrouter } from "./testtable/testtable.router";
+import { postDataWithCron } from "./testtable/testtable.job";
 
 const app = express();
 const port = process.env.PORT || 3333;
+
+postDataWithCron.start();
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
