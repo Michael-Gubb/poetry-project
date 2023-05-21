@@ -13,4 +13,5 @@ export async function postTestData(data: string) {
   const queryUuid = uuidv4();
   const results = await pool.query(getTestDataQuery, [queryUuid, data]);
   console.log(results.rows);
+  return results.rows;
 }

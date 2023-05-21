@@ -1,11 +1,22 @@
 import express from "express";
-import { getTestData } from "./testtable.repository";
+import { getTestData, postTestData } from "./testtable.repository";
 
-const router = express.Router();
+export const testrouter = express.Router();
 
-router.get("/", async (req, res, next) => {
+testrouter.get("/", async (req, res, next) => {
   try {
     const response = await getTestData();
+
+    return res.json(response);
+  } catch (err) {
+    next(err);
+  }
+});
+
+testrouter.post("/", async (req, res, next) => {
+  try {
+    const dataToPost = new Date();
+    const response = await postTestData(dataToPost.toString());
 
     return res.json(response);
   } catch (err) {
