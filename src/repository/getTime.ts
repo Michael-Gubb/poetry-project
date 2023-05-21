@@ -1,6 +1,4 @@
-import pg from "pg";
-
-const pool = new pg.Pool();
+import pool from "../db";
 
 export async function getTime() {
   const { rows } = await pool.query("SELECT NOW()");
