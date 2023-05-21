@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import express from "express";
 import { getTime } from "./repository/getTime";
+import { testrouter } from "./testtable/testtable.router";
 
 const app = express();
 const port = process.env.PORT || 3333;
@@ -8,6 +9,8 @@ const port = process.env.PORT || 3333;
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
 app.use(bodyParser.text({ type: "text/html" }));
+
+app.use("/test", testrouter);
 
 app.get("/", async (req, res) => {
   const time = await getTime();
