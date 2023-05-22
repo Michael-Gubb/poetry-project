@@ -1,9 +1,9 @@
 {
-  "name": "expressjs-postgres",
+  "name": "poetry-project-server",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "dist/index.js",
-  "author": "Jake Runzer",
+  "author": "Michael Gubb",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
