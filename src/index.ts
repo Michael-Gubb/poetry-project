@@ -7,7 +7,7 @@ import { postDataWithCron } from "./testtable/testtable.job";
 const app = express();
 const port = process.env.PORT || 3333;
 
-postDataWithCron.start();
+postDataWithCron.resume();
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));

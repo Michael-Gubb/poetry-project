@@ -1,7 +1,10 @@
-import { CronJob } from "cron";
+import { Cron, CronOptions } from "croner";
 import { postTestData } from "./testtable.repository";
 
-export const postDataWithCron = new CronJob(`0 * * * *`, async () => {
+const cronOptions: CronOptions = { timezone: `Pacific/Auckland` };
+
+export const postDataWithCron = new Cron(`0 * * * *`, cronOptions, async () => {
   const testData = `Cronjob at time:${new Date().toString()}`;
-  await postTestData(testData);
+  const response = await postTestData(testData);
+  return response;
 });
