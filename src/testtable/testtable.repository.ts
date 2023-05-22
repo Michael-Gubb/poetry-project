@@ -4,6 +4,9 @@ import { logGetTestData, logPostTestData } from "../log/log";
 
 uuidv4();
 
+/**
+ * Returns the contents of testtable
+ */
 export async function getTestData() {
   const getTestDataQuery = `SELECT id,testdata FROM testtable;`;
   const { rows } = await pool.query(getTestDataQuery);
@@ -11,7 +14,10 @@ export async function getTestData() {
   const responseBody = { testArray: rows };
   return responseBody;
 }
-
+/**
+ * Inserts into testtable the provided data with a newly generated UUID primary key
+ * @param data {string} data to insert into new row
+ */
 export async function postTestData(data: string) {
   const getTestDataQuery = `INSERT INTO testtable (id,testdata) VALUES ($1,$2);`;
   const queryUuid = uuidv4();
