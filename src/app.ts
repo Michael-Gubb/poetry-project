@@ -4,15 +4,31 @@ import bodyParser from "body-parser";
 import express from "express";
 import { getTime } from "./repository/getTime";
 import { testrouter } from "./testtable/testtable.router";
-import { postDataWithCron } from "./testtable/testtable.job";
+import {
+  resumeCronJobs,
+  resumeTestCronJobs,
+  pauseTestCronJobs,
+} from "./cron/cron.controller";
 
 export const app = express();
 
-postDataWithCron.resume();
+resumeCronJobs();
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
 app.use(bodyParser.text({ type: "text/html" }));
+
+app.post("/cron", (req, res) => {
+  if (req.body.message === "start") {
+    resumeTestCronJobs();
+    res.send("Resuming test cronjobs");
+  } else if (req.body.message === "stop") {
+    pauseTestCronJobs();
+    res.send("Pausing test cronjobs");
+  } else {
+    res.send("Please enter correct command");
+  }
+});
 
 app.use("/test", testrouter);
 
