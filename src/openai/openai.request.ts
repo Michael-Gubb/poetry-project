@@ -41,5 +41,5 @@ export async function askForPoem(
     messages: [{ role: "user", content: poemPrompt }],
   });
   console.log(completion.data.choices[0].message);
-  return completion.data.choices[0].message as string;
+  return completion.data.choices[0].message as PoemResponse;
 }
