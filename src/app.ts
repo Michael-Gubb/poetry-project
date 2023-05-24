@@ -29,10 +29,14 @@ app.post("/cron", (req, res) => {
 
 app.use("/test", testrouter);
 
-app.get("/openai", async (req, res) => {
-  const prompt = req.body.message ? req.body.message : undefined;
-  const helloWorldResult = await helloWorld(prompt);
-  res.send(helloWorldResult);
+app.get("/openai", async (req, res, next) => {
+  try {
+    const prompt = req.body.message ? String(req.body.message) : undefined;
+    const helloWorldResult = await helloWorld(prompt);
+    res.send(helloWorldResult);
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.get("/", async (req, res) => {

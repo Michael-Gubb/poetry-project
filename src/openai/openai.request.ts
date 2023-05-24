@@ -5,6 +5,11 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+/**
+ * Sends request to text-davinci-003 with default options
+ * @param {string} [prompt] Text to send to openAI, default is 'Hello world'
+ * @returns
+ */
 export async function helloWorld(prompt = "Hello world") {
   console.log(prompt);
   const completion = await openai.createCompletion({
@@ -12,5 +17,5 @@ export async function helloWorld(prompt = "Hello world") {
     prompt: prompt,
   });
   console.log(completion.data.choices[0].text);
-  return completion.data.choices[0].text;
+  return completion.data.choices[0].text as string;
 }
