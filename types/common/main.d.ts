@@ -18,7 +18,7 @@ type ChatCompletionModel = (typeof ChatCompletionModels)[number];
 const ChatCompletionMessageRoles = ["system", "user", "assistant"] as const;
 type ChatCompletionMessageRole = (typeof ChatCompletionMessageRoles)[number];
 
-/**
+/** Request body parameters for the Chat Completion API. Creates a model response for the given chat conversation.
  * {@link https://platform.openai.com/docs/api-reference/chat/create}
  */
 type ChatCompletionParams = {
@@ -49,6 +49,30 @@ type ChatCompletionParams = {
   frequency_penalty?: number;
   /** Modify the likelihood of specified tokens appearing in the completion. */
   logit_bias?: object;
+  /** A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. */
+  user?: string;
+};
+
+const ImageSizes = ["256x256", "512x512", "1024x1024"] as const;
+type ImageSize = (typeof ImageSizes)[number];
+
+/** Request body parameters for the Create Image API.
+ * Creates an image given a prompt.
+ * {@link https://platform.openai.com/docs/api-reference/images/create}
+ */
+type CreateImageParams = {
+  /** A text description of the desired image(s). The maximum length is 1000 characters. */
+  prompt: string;
+  /** The number of images to generate. Must be between 1 and 10.
+   *  Default is 1.
+   * */
+  n?: number;
+  /**
+   * The size of the generated images. Defaults to 1024x1024.
+   */
+  size?: ImageSize;
+  /** The format in which the generated images are returned. Defaults to url. */
+  response_format?: "url" | "b64_json";
   /** A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. */
   user?: string;
 };
