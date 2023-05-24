@@ -30,13 +30,13 @@ export async function askForPoem(
 ) {
   console.log(poemInput);
   /** Fills array with Dogs,Cats,Fruits if less than 3 inputs are provided */
-  const poemPromptStrings = [
+  const poemPromptParts = [
     poemInput[0] || "Dogs",
     poemInput[1] || "Cats",
     poemInput[2] || "Fruit",
   ];
-  /** Prompt to provided to chat completion */
-  const poemPrompt = `Write a poem about ${poemPromptStrings[0]},${poemPromptStrings[1]} and ${poemPromptStrings[2]}`;
+  /** Prompt to be sent to chat completion */
+  const poemPrompt = `Write a poem about ${poemPromptParts[0]},${poemPromptParts[1]} and ${poemPromptParts[2]}`;
   console.log(poemPrompt);
   const chatCompletionParams: ChatCompletionParams = {
     model: "gpt-3.5-turbo",
