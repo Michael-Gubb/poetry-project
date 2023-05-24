@@ -45,7 +45,7 @@ app.get("/poem", async (req, res, next) => {
     const poemResult = await askForPoem(
       req.body.poemThings ? req.body.poemThings : undefined
     );
-    res.send(poemResult.message);
+    res.send(poemResult.content);
   } catch (error) {
     next(error);
   }

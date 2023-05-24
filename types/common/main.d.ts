@@ -1,2 +1,2 @@
 /** Poem response */
-type PoemResponse = { role: "assistant"; message: string };
+type PoemResponse = { role: "assistant"; content: string };
