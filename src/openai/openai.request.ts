@@ -21,25 +21,29 @@ export async function helloWorld(prompt: string = "Hello world") {
 }
 
 /**
- * Sends request to gpt-3.5-turbo for poem about 3 inputs
- * @param [poemInputs] Array of 3 strings
- * @returns
+ * Sends request to gpt-3.5-turbo for poem, using input array
+ * @param [poemInput] Array of 3 strings used in poem
+ * @returns Message from chatgpt, array of strings with newlines
  */
 export async function askForPoem(
-  poemInputs: string[] = ["Dogs", "Cats", "Fruit"]
+  poemInput: string[] = ["Dogs", "Cats", "Fruit"]
 ) {
-  console.log(poemInputs);
+  console.log(poemInput);
+  /** Fills array with Dogs,Cats,Fruits if less than 3 inputs are provided */
   const poemPromptStrings = [
-    poemInputs[0] || "Dogs",
-    poemInputs[1] || "Cats",
-    poemInputs[2] || "Fruit",
+    poemInput[0] || "Dogs",
+    poemInput[1] || "Cats",
+    poemInput[2] || "Fruit",
   ];
+  /** Prompt to provided to chat completion */
   const poemPrompt = `Write a poem about ${poemPromptStrings[0]},${poemPromptStrings[1]} and ${poemPromptStrings[2]}`;
   console.log(poemPrompt);
-  const completion = await openai.createChatCompletion({
+  const chatCompletionParams: ChatCompletionParams = {
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: poemPrompt }],
-  });
+  };
+  const completion = await openai.createChatCompletion(chatCompletionParams);
   console.log(completion.data.choices[0].message);
-  return completion.data.choices[0].message as PoemResponse;
+  const response = completion.data.choices[0].message;
+  return response as PoemResponse;
 }

@@ -42,7 +42,7 @@ app.get("/openai", async (req, res, next) => {
 app.get("/poem", async (req, res, next) => {
   try {
     console.log("asking for poem");
-    const poemResult = await askForPoem(
+    const poemResult: PoemResponse = await askForPoem(
       req.body.poemThings ? req.body.poemThings : undefined
     );
     res.send(poemResult.content);
