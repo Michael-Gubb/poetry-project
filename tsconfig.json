@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "typeRoots": ["./types"],
 
     "incremental": true,
     "target": "es6",
