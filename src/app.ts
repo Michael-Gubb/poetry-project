@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import express from "express";
 import { getTime } from "./repository/getTime";
 import { testrouter } from "./testtable/testtable.router";
+import { helloWorld } from "./openai/openai.request";
 import * as cronJobs from "./cron/cron.controller";
 
 export const app = express();
@@ -27,6 +28,12 @@ app.post("/cron", (req, res) => {
 });
 
 app.use("/test", testrouter);
+
+app.get("/openai", async (req, res) => {
+  const prompt = req.body.message ? req.body.message : undefined;
+  const helloWorldResult = await helloWorld(prompt);
+  res.send(helloWorldResult);
+});
 
 app.get("/", async (req, res) => {
   const time = await getTime();
