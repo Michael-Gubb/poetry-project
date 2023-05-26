@@ -4,7 +4,9 @@ import bodyParser from "body-parser";
 import express from "express";
 import { getTime } from "./repository/getTime";
 import { testrouter } from "./testtable/testtable.router";
-import { helloWorld, askForPoem } from "./openai/openai.request";
+import { poemRouter } from "./middleware/poem.router";
+import { helloWorld, askForPoem, askForImage } from "./openai/openai.request";
+import { getPoemTopics } from "./utils/poem.utils";
 import * as cronJobs from "./cron/cron.controller";
 
 export const app = express();
@@ -39,6 +41,8 @@ app.get("/openai", async (req, res, next) => {
   }
 });
 
+app.use("/poem", poemRouter);
+/*
 app.get("/poem", async (req, res, next) => {
   try {
     console.log("asking for poem");
@@ -46,6 +50,18 @@ app.get("/poem", async (req, res, next) => {
       req.body.poemThings ? req.body.poemThings : undefined
     );
     res.send(poemResult.content);
+  } catch (error) {
+    next(error);
+  }
+});*/
+
+app.get("/image", async (req, res, next) => {
+  try {
+    console.log("asking for image");
+    const imageResult = await askForImage(
+      req.body.imagePrompt ? req.body.imagePrompt : undefined
+    );
+    res.send(imageResult);
   } catch (error) {
     next(error);
   }
@@ -58,4 +74,11 @@ app.get("/", async (req, res) => {
 
 app.get("/healthcheck", (req, res) => {
   res.send(`Server running`);
+});
+
+app.get("/poemtopics", (req, res) => {
+  console.log("poemtopics");
+  const poemTopics = getPoemTopics();
+
+  res.json({ topics: poemTopics });
 });
