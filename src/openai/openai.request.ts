@@ -47,3 +47,11 @@ export async function askForPoem(
   const response = completion.data.choices[0].message;
   return response as PoemResponse;
 }
+
+export async function askForImage(imagePrompt: string = "cute cat") {
+  console.log("Asking for image");
+  const imageParams: CreateImageParams = { prompt: imagePrompt };
+  const completion = await openai.createImage(imageParams);
+  console.log(completion.data);
+  return completion.data;
+}
