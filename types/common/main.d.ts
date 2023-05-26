@@ -1,6 +1,8 @@
 /** Poem response */
 type PoemResponse = { role: "assistant"; content: string };
 
+/* Open AI Types*/
+
 /** Possible Chat Completion Models
  * {@link https://platform.openai.com/docs/api-reference/chat/create#chat/create-model}
  */
