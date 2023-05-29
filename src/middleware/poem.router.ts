@@ -1,11 +1,14 @@
 import express from "express";
 import { poemRequestValidator } from "./validation.middleware";
 import { askForPoem } from "../openai/openai.request";
+import { getPoems } from "../poem/poem.repository";
 
 export const poemRouter = express.Router();
 
-poemRouter.get("/", (req, res) => {
-  res.send("Send created poems");
+poemRouter.get("/", async (req, res) => {
+  const poems = await getPoems();
+
+  res.send({ poems: poems });
 });
 
 /** Create new poems */

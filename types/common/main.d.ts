@@ -1,6 +1,8 @@
 /** Poem response, from assistant */
 type PoemResponse = { role: "assistant"; content: string };
 
+type Poem = any;
+
 /* Open AI Types*/
 
 /**
