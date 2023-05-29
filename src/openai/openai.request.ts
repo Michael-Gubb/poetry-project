@@ -1,4 +1,5 @@
-const { Configuration, OpenAIApi } = require("openai");
+import { Configuration, OpenAIApi } from "openai";
+import { createPoemPrompt } from "../utils/poem.utils";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,12 +12,10 @@ const openai = new OpenAIApi(configuration);
  * @returns
  */
 export async function helloWorld(prompt: string = "Hello world") {
-  console.log(prompt);
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: prompt,
   });
-  console.log(completion.data.choices[0].text);
   return completion.data.choices[0].text as string;
 }
 
@@ -28,7 +27,6 @@ export async function helloWorld(prompt: string = "Hello world") {
 export async function askForPoem(
   poemInput: string[] = ["Dogs", "Cats", "Fruit"]
 ) {
-  console.log(poemInput);
   /** Fills array with Dogs,Cats,Fruits if less than 3 inputs are provided */
   const poemPromptParts = [
     poemInput[0] || "Dogs",
@@ -36,22 +34,23 @@ export async function askForPoem(
     poemInput[2] || "Fruit",
   ];
   /** Prompt to be sent to chat completion */
-  const poemPrompt = `Write a poem about ${poemPromptParts[0]},${poemPromptParts[1]} and ${poemPromptParts[2]}`;
-  console.log(poemPrompt);
+  const poemPrompt = createPoemPrompt(poemPromptParts);
   const chatCompletionParams: ChatCompletionParams = {
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: poemPrompt }],
   };
   const completion = await openai.createChatCompletion(chatCompletionParams);
-  console.log(completion.data.choices[0].message);
   const response = completion.data.choices[0].message;
   return response as PoemResponse;
 }
 
+/**
+ * Generates image from OpenAI API
+ * @param imagePrompt
+ * @returns
+ */
 export async function askForImage(imagePrompt: string = "cute cat") {
-  console.log("Asking for image");
   const imageParams: CreateImageParams = { prompt: imagePrompt };
   const completion = await openai.createImage(imageParams);
-  console.log(completion.data);
   return completion.data;
 }
