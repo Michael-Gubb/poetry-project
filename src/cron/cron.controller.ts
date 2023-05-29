@@ -1,13 +1,13 @@
-import { postDataWithCron, testCronJob } from "./cronjobs";
+import { testCronJob, openAIRequest } from "./cronjobs";
 
 /** Starts/resumes main cron jobs*/
 export function resumeCronJobs() {
-  postDataWithCron.resume();
+  openAIRequest.resume();
 }
 
 /** Pauses main cron jobs*/
 export function pauseCronJobs() {
-  postDataWithCron.pause();
+  openAIRequest.pause();
 }
 
 /** Starts/resumes test cron jobs*/
