@@ -5,10 +5,13 @@ import { getPoems } from "../poem/poem.repository";
 
 export const poemRouter = express.Router();
 
-poemRouter.get("/", async (req, res) => {
-  const poems = await getPoems();
-
-  res.send({ poems: poems });
+poemRouter.get("/", async (req, res, next) => {
+  try {
+    const poems = await getPoems();
+    res.send({ poems: poems });
+  } catch (error) {
+    next(error);
+  }
 });
 
 /** Create new poems */
