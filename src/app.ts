@@ -5,14 +5,13 @@ import express from "express";
 import { getTime } from "./repository/time";
 import { testrouter } from "./testtable/testtable.router";
 import { poemRouter } from "./middleware/poem.router";
-import { helloWorld, askForPoem, askForImage } from "./openai/openai.request";
-import { getPoemTopics } from "./utils/poem.utils";
-import { checkTestTableExists, checkPoemExists } from "./repository/setupdb";
+import { getPoemTopics, getAllPoemTopics } from "./utils/poem.utils";
 import * as cronJobs from "./cron/cron.controller";
+import appSetup from "./app.setup";
 
 export const app = express();
 
-cronJobs.resumeCronJobs();
+appSetup();
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
@@ -32,41 +31,7 @@ app.post("/cron", (req, res) => {
 
 app.use("/test", testrouter);
 
-app.get("/openai", async (req, res, next) => {
-  try {
-    const prompt = req.body.message ? String(req.body.message) : undefined;
-    const helloWorldResult = await helloWorld(prompt);
-    res.send(helloWorldResult);
-  } catch (error) {
-    next(error);
-  }
-});
-
 app.use("/poem", poemRouter);
-/*
-app.get("/poem", async (req, res, next) => {
-  try {
-    console.log("asking for poem");
-    const poemResult: PoemResponse = await askForPoem(
-      req.body.poemThings ? req.body.poemThings : undefined
-    );
-    res.send(poemResult.content);
-  } catch (error) {
-    next(error);
-  }
-});*/
-
-app.get("/image", async (req, res, next) => {
-  try {
-    console.log("asking for image");
-    const imageResult = await askForImage(
-      req.body.imagePrompt ? req.body.imagePrompt : undefined
-    );
-    res.send(imageResult);
-  } catch (error) {
-    next(error);
-  }
-});
 
 app.get("/", async (req, res) => {
   const time = await getTime();
@@ -78,22 +43,11 @@ app.get("/healthcheck", (req, res) => {
 });
 
 app.get("/poemtopics", (req, res) => {
-  console.log("poemtopics");
   const poemTopics = getPoemTopics();
-
   res.json({ topics: poemTopics });
 });
 
-app.get("/testtable", async (req, res) => {
-  console.log("check testtable");
-  const testTableExists = await checkTestTableExists();
-
-  res.json({ testTableExists: testTableExists });
-});
-
-app.get("/poemexists", async (req, res) => {
-  console.log("check poem table");
-  const poemTableExists = await checkPoemExists();
-
-  res.json({ poemTableExists: poemTableExists });
+app.get("/allpoemtopics", (req, res) => {
+  const poemTopics = getAllPoemTopics();
+  res.json({ topics: poemTopics });
 });

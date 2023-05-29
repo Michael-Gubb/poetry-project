@@ -71,3 +71,7 @@ export function getPoemTopics() {
   }
   return poemTopics as string[];
 }
+
+export function getAllPoemTopics() {
+  return allPoemTopics;
+}
