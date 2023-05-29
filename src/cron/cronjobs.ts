@@ -3,7 +3,7 @@ import { postTestData } from "../testtable/testtable.repository";
 import { getPoemTopics } from "../utils/poem.utils";
 import { askForPoem } from "../openai/openai.request";
 
-const cronOptions: CronOptions = { timezone: `Pacific/Auckland` };
+const cronOptions: CronOptions = { timezone: `Pacific/Auckland`, paused: true };
 
 const everyHour = `0 * * * *`;
 const everyMinute = "* * * * *";
