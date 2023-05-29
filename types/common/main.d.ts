@@ -1,10 +1,11 @@
-/** Poem response */
+/** Poem response, from assistant */
 type PoemResponse = { role: "assistant"; content: string };
 
 /* Open AI Types*/
 
-/** Possible Chat Completion Models
- * {@link https://platform.openai.com/docs/api-reference/chat/create#chat/create-model}
+/**
+ * Taken from
+ * {@link https://platform.openai.com/docs/models/model-endpoint-compatibility}
  */
 const ChatCompletionModels = [
   "gpt-4",
@@ -15,6 +16,10 @@ const ChatCompletionModels = [
   "gpt-3.5-turbo-0301",
 ] as const;
 
+/**
+ * Taken from
+ * {@link https://platform.openai.com/docs/models/model-endpoint-compatibility}
+ */
 type ChatCompletionModel = (typeof ChatCompletionModels)[number];
 
 const ChatCompletionMessageRoles = ["system", "user", "assistant"] as const;
