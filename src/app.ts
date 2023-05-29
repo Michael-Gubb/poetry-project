@@ -2,11 +2,12 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import bodyParser from "body-parser";
 import express from "express";
-import { getTime } from "./repository/getTime";
+import { getTime } from "./repository/time";
 import { testrouter } from "./testtable/testtable.router";
 import { poemRouter } from "./middleware/poem.router";
 import { helloWorld, askForPoem, askForImage } from "./openai/openai.request";
 import { getPoemTopics } from "./utils/poem.utils";
+import { checkTestTableExists, checkPoemExists } from "./repository/setupdb";
 import * as cronJobs from "./cron/cron.controller";
 
 export const app = express();
@@ -81,4 +82,18 @@ app.get("/poemtopics", (req, res) => {
   const poemTopics = getPoemTopics();
 
   res.json({ topics: poemTopics });
+});
+
+app.get("/testtable", async (req, res) => {
+  console.log("check testtable");
+  const testTableExists = await checkTestTableExists();
+
+  res.json({ testTableExists: testTableExists });
+});
+
+app.get("/poemexists", async (req, res) => {
+  console.log("check poem table");
+  const poemTableExists = await checkPoemExists();
+
+  res.json({ poemTableExists: poemTableExists });
 });
