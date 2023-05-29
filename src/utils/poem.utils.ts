@@ -105,3 +105,12 @@ function transformPoemToCamelCase(poem: Poem) {
 export function transformPoemsToCamelCase(poems: Poem[]) {
   return poems.map((poem) => transformPoemToCamelCase(poem));
 }
+
+/**
+ * Generates a poem prompt from 3 topics
+ * @param poemPromptParts Array of 3 topics
+ * @returns
+ */
+export function createPoemPrompt(poemPromptParts: string[]) {
+  return `Write a poem about ${poemPromptParts[0]},${poemPromptParts[1]} and ${poemPromptParts[2]}`;
+}

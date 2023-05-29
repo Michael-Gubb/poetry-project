@@ -18,7 +18,6 @@ poemRouter.get("/", async (req, res, next) => {
 /** Create new poems */
 poemRouter.post("/", poemRequestValidator, async (req, res, next) => {
   try {
-    console.log("asking for poem");
     const poemResult: PoemResponse = await askForPoem(
       req.body.poemWords ? req.body.poemWords : undefined
     );

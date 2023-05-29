@@ -17,7 +17,6 @@ testrouter.post("/", async (req, res, next) => {
   try {
     const dataToPost = new Date();
     const response = await postTestData(dataToPost.toString());
-
     return res.json(response);
   } catch (err) {
     next(err);
