@@ -7,7 +7,6 @@ import pool from "../db";
 export async function getPoems() {
   const getPoemsQuery = `SELECT * FROM poem;`;
   const { rows } = await pool.query(getPoemsQuery);
-  console.log(rows[0]);
   return rows as Poem[];
 }
 /**

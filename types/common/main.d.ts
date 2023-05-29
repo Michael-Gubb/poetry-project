@@ -22,6 +22,7 @@ type Poem = {
 
 /**
  * Poem as sent out via API
+ *
  * Note that poem_hidden is not sent (as should be false)
  */
 type CamelCasePoem = {
