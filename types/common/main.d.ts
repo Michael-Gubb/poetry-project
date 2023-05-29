@@ -1,7 +1,24 @@
 /** Poem response, from assistant */
 type PoemResponse = { role: "assistant"; content: string };
-
-type Poem = any;
+/**
+ * Poem as stored in DB
+ */
+type Poem = {
+  /** UUID */
+  poem_id: string;
+  /** Includes /n */
+  poem_text: string;
+  /** Length 3 array */
+  poem_topics: string[];
+  /** Genre (not currently implemented) */
+  poem_genre?: string | null;
+  /** Image (not currenly implemented) */
+  poem_img?: string | null;
+  /** Is poem hidden from public? */
+  poem_hidden: boolean;
+  //** Date created (Auckland TZ). As string as dates are annoying */
+  poem_date: string;
+};
 
 /* Open AI Types*/
 
