@@ -7,3 +7,11 @@ export function logGetTestData(queryResult: any[]) {
 export function logPostTestData(id: string, data: string) {
   console.log(`Posting: ${id}, ${data}`);
 }
+
+export function logSetupStarted() {
+  console.log("App setup started");
+}
+
+export function logSetupEnded() {
+  console.log("App setup ended");
+}
