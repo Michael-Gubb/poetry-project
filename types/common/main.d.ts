@@ -20,6 +20,25 @@ type Poem = {
   poem_date: string;
 };
 
+/**
+ * Poem as sent out via API
+ * Note that poem_hidden is not sent (as should be false)
+ */
+type CamelCasePoem = {
+  /** UUID */
+  poemId: string;
+  /** Includes /n */
+  poemText: string;
+  /** Length 3 array */
+  poemTopics: string[];
+  /** Genre (not currently implemented) */
+  poemGenre?: string | null;
+  /** Image (not currenly implemented) */
+  poemImg?: string | null;
+  //** Date created (Auckland TZ). As string as dates are annoying */
+  poemDate: string;
+};
+
 /* Open AI Types*/
 
 /**
