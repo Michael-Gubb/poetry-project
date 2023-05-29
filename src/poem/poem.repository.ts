@@ -13,8 +13,12 @@ export async function getPoems() {
  * Inserts into testtable the provided data with a newly generated UUID primary key
  * @param data {string} data to insert into new row
  */
-export async function postPoem(poemText: string, poemTopics: string[]) {
-  const getTestDataQuery = `INSERT INTO poem (poem_id,poem_text,poem_topics,poem_date) VALUES ($1,$2,$3,$4);`;
+export async function postPoem(
+  poemText: string,
+  poemTopics: string[],
+  poemGenre: string
+) {
+  const getTestDataQuery = `INSERT INTO poem (poem_id,poem_text,poem_topics,poem_date,poem_genre) VALUES ($1,$2,$3,$4,$5);`;
   const queryUuid = uuidv4();
   const currentDate = new Date();
   const currentDateString = currentDate.toLocaleString("en-GB", {
@@ -26,6 +30,7 @@ export async function postPoem(poemText: string, poemTopics: string[]) {
     poemText,
     poemTopics,
     currentDateString,
+    poemGenre,
   ]);
   return rows;
 }
