@@ -1,13 +1,13 @@
-import { testCronJob, openAIRequest } from "./cronjobs";
+import { testCronJob, hourlyGeneratePoem } from "./cronjobs";
 
 /** Starts/resumes main cron jobs*/
 export function resumeCronJobs() {
-  openAIRequest.resume();
+  hourlyGeneratePoem.resume();
 }
 
 /** Pauses main cron jobs*/
 export function pauseCronJobs() {
-  openAIRequest.pause();
+  hourlyGeneratePoem.pause();
 }
 
 /** Starts/resumes test cron jobs*/

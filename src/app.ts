@@ -31,7 +31,7 @@ app.post("/cron", (req, res) => {
 
 app.use("/test", testrouter);
 
-app.use("/poem", poemRouter);
+app.use("/poems", poemRouter);
 
 app.get("/", async (req, res) => {
   const time = await getTime();
