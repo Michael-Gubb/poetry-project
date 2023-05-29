@@ -37,6 +37,17 @@ const allPoemTopics = [
   "Te Awamutu",
   "Mount Cook",
 ];
+
+const allPoemGenres = [
+  "poem",
+  "eulogy",
+  "sonnet",
+  "haiku",
+  "limerick",
+  "ballad",
+  "elegy",
+];
+
 /**
  * Utility function to find a random element from an array
  * @param inputArray Array of anything
@@ -44,6 +55,13 @@ const allPoemTopics = [
  */
 function getRandomElement(inputArray: any[]) {
   return inputArray[Math.floor(Math.random() * inputArray.length)];
+}
+/**
+ * Gets a random poem genre from poem genres defined in utils
+ * @returns Random genre
+ */
+export function getPoemGenre(): string {
+  return getRandomElement(allPoemGenres);
 }
 
 /**
@@ -107,10 +125,14 @@ export function transformPoemsToCamelCase(poems: Poem[]) {
 }
 
 /**
- * Generates a poem prompt from 3 topics
+ * Generates a poem prompt from 3 topics and genre
  * @param poemPromptParts Array of 3 topics
+ * @param poemGenre Defaults to poem
  * @returns
  */
-export function createPoemPrompt(poemPromptParts: string[]) {
-  return `Write a poem about ${poemPromptParts[0]},${poemPromptParts[1]} and ${poemPromptParts[2]}`;
+export function createPoemPrompt(
+  poemPromptParts: string[],
+  poemGenre: string = "poem"
+) {
+  return `Write a ${poemGenre} about ${poemPromptParts[0]},${poemPromptParts[1]} and ${poemPromptParts[2]}`;
 }

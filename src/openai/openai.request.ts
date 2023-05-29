@@ -21,20 +21,21 @@ export async function helloWorld(prompt: string = "Hello world") {
 
 /**
  * Sends request to gpt-3.5-turbo for poem, using input array
- * @param [poemInput] Array of 3 strings used in poem
+ * @param [poemTopics] Array of 3 strings used in poem
  * @returns Message from chatgpt, array of strings with newlines
  */
 export async function askForPoem(
-  poemInput: string[] = ["Dogs", "Cats", "Fruit"]
+  poemTopics: string[] = ["Dogs", "Cats", "Fruit"],
+  poemGenre: string = "poem"
 ) {
   /** Fills array with Dogs,Cats,Fruits if less than 3 inputs are provided */
   const poemPromptParts = [
-    poemInput[0] || "Dogs",
-    poemInput[1] || "Cats",
-    poemInput[2] || "Fruit",
+    poemTopics[0] || "Dogs",
+    poemTopics[1] || "Cats",
+    poemTopics[2] || "Fruit",
   ];
   /** Prompt to be sent to chat completion */
-  const poemPrompt = createPoemPrompt(poemPromptParts);
+  const poemPrompt = createPoemPrompt(poemPromptParts, poemGenre);
   const chatCompletionParams: ChatCompletionParams = {
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: poemPrompt }],
