@@ -75,3 +75,33 @@ export function getPoemTopics() {
 export function getAllPoemTopics() {
   return allPoemTopics;
 }
+
+/**
+ * Transforms a poem from DB to API form
+ *
+ * Ignores poem.hidden and does not transform that
+ * @param poem
+ * @returns
+ */
+function transformPoemToCamelCase(poem: Poem) {
+  const camelCasePoem: CamelCasePoem = {
+    poemId: poem.poem_id,
+    poemDate: poem.poem_date,
+    poemText: poem.poem_text,
+    poemTopics: poem.poem_topics,
+    poemGenre: poem.poem_genre,
+    poemImg: poem.poem_img,
+  };
+  return camelCasePoem;
+}
+
+/**
+ * Transforms an array of poems from DB to API form
+ *
+ * Ignores poem.hidden and does not transform that
+ * @param poems
+ * @returns
+ */
+export function transformPoemsToCamelCase(poems: Poem[]) {
+  return poems.map((poem) => transformPoemToCamelCase(poem));
+}

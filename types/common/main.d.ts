@@ -1,7 +1,43 @@
 /** Poem response, from assistant */
 type PoemResponse = { role: "assistant"; content: string };
+/**
+ * Poem as stored in DB
+ */
+type Poem = {
+  /** UUID */
+  poem_id: string;
+  /** Includes /n */
+  poem_text: string;
+  /** Length 3 array */
+  poem_topics: string[];
+  /** Genre (not currently implemented) */
+  poem_genre?: string | null;
+  /** Image (not currenly implemented) */
+  poem_img?: string | null;
+  /** Is poem hidden from public? */
+  poem_hidden: boolean;
+  //** Date created (Auckland TZ). As string as dates are annoying */
+  poem_date: string;
+};
 
-type Poem = any;
+/**
+ * Poem as sent out via API
+ * Note that poem_hidden is not sent (as should be false)
+ */
+type CamelCasePoem = {
+  /** UUID */
+  poemId: string;
+  /** Includes /n */
+  poemText: string;
+  /** Length 3 array */
+  poemTopics: string[];
+  /** Genre (not currently implemented) */
+  poemGenre?: string | null;
+  /** Image (not currenly implemented) */
+  poemImg?: string | null;
+  //** Date created (Auckland TZ). As string as dates are annoying */
+  poemDate: string;
+};
 
 /* Open AI Types*/
 
