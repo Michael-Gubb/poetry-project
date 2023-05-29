@@ -42,6 +42,7 @@ export async function createPoemTable() {
             poem_topics text[],
             poem_genre text,
             poem_img text,
+            poem_date text,
             poem_hidden boolean DEFAULT false    
             )`;
 
