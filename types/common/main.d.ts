@@ -1,3 +1,8 @@
+/*import { allPoemTopics, allPoemGenres } from "../../src/utils/poem.utils";
+
+type PoemTopic = (typeof allPoemTopics)[number];
+type PoemGenre = (typeof allPoemGenres)[number];*/
+
 /** Poem response, from assistant */
 type PoemResponse = { role: "assistant"; content: string };
 /**
@@ -10,10 +15,10 @@ type Poem = {
   poem_text: string;
   /** Length 3 array */
   poem_topics: string[];
-  /** Genre (not currently implemented) */
-  poem_genre?: string | null;
-  /** Image (not currenly implemented) */
-  poem_img?: string | null;
+  /** Genre */
+  poem_genre: string;
+  /** Image url */
+  poem_img: string | null;
   /** Is poem hidden from public? */
   poem_hidden: boolean;
   //** Date created (Auckland TZ). As string as dates are annoying */
@@ -32,10 +37,10 @@ type CamelCasePoem = {
   poemText: string;
   /** Length 3 array */
   poemTopics: string[];
-  /** Genre (not currently implemented) */
-  poemGenre?: string | null;
-  /** Image (not currenly implemented) */
-  poemImg?: string | null;
+  /** Genre */
+  poemGenre: string;
+  /** Image url */
+  poemImg: string | null;
   //** Date created (Auckland TZ). As string as dates are annoying */
   poemDate: string;
 };
