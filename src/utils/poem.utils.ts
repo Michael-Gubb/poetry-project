@@ -1,7 +1,7 @@
 /**
  * List of poem topics to select 3 topics from
  */
-const allPoemTopics = [
+export const allPoemTopics = [
   "Dogs",
   "Cats",
   "Fish",
@@ -36,9 +36,9 @@ const allPoemTopics = [
   "Australia",
   "Te Awamutu",
   "Mount Cook",
-];
+] as const;
 
-const allPoemGenres = [
+export const allPoemGenres = [
   "poem",
   "eulogy",
   "sonnet",
@@ -46,7 +46,7 @@ const allPoemGenres = [
   "limerick",
   "ballad",
   "elegy",
-];
+] as const;
 
 /**
  * Utility function to find a random element from an array
@@ -61,7 +61,7 @@ function getRandomElement(inputArray: any[]) {
  * @returns Random genre
  */
 export function getPoemGenre(): string {
-  return getRandomElement(allPoemGenres);
+  return getRandomElement(allPoemGenres as any);
 }
 
 /**
@@ -70,13 +70,13 @@ export function getPoemGenre(): string {
  */
 export function getPoemTopics() {
   const poemTopics = new Array(3);
-  poemTopics[0] = getRandomElement(allPoemTopics);
-  poemTopics[1] = getRandomElement(allPoemTopics);
-  poemTopics[2] = getRandomElement(allPoemTopics);
+  poemTopics[0] = getRandomElement(allPoemTopics as any);
+  poemTopics[1] = getRandomElement(allPoemTopics as any);
+  poemTopics[2] = getRandomElement(allPoemTopics as any);
   const MAX_LOOPS = 100;
   let loopCounter = 0;
   while (poemTopics[0] === poemTopics[1] && loopCounter <= MAX_LOOPS) {
-    poemTopics[1] = getRandomElement(allPoemTopics);
+    poemTopics[1] = getRandomElement(allPoemTopics as any);
     loopCounter++;
   }
   loopCounter = 0;
@@ -84,7 +84,7 @@ export function getPoemTopics() {
     (poemTopics[0] === poemTopics[2] || poemTopics[1] === poemTopics[2]) &&
     loopCounter <= MAX_LOOPS
   ) {
-    poemTopics[2] = getRandomElement(allPoemTopics);
+    poemTopics[2] = getRandomElement(allPoemTopics as any);
     loopCounter++;
   }
   return poemTopics as string[];
