@@ -29,7 +29,7 @@ export const hourlyGeneratePoem = new Cron(
 async function generateAndPostPoem() {
   const poemTopics = getPoemTopics();
   const poemGenre = getPoemGenre();
-  const poemResponse = await askForPoem(poemTopics);
+  const poemResponse = await askForPoem(poemTopics, poemGenre);
   await postPoem(poemResponse.content, poemTopics, poemGenre);
 }
 
