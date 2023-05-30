@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import bodyParser from "body-parser";
 import express from "express";
-import { getTime } from "./repository/time";
+import cors from "cors";
 import { testrouter } from "./testtable/testtable.router";
 import { poemRouter } from "./middleware/poem.router";
 import { getPoemTopics, getAllPoemTopics } from "./utils/poem.utils";
@@ -10,6 +10,7 @@ import * as cronJobs from "./cron/cron.controller";
 import appSetup from "./app.setup";
 
 export const app = express();
+app.use(cors());
 
 appSetup();
 
@@ -32,11 +33,6 @@ app.post("/cron", (req, res) => {
 app.use("/test", testrouter);
 
 app.use("/poems", poemRouter);
-
-app.get("/", async (req, res) => {
-  const time = await getTime();
-  res.send(`Hello, World! The time from the DB is ${time}`);
-});
 
 app.get("/healthcheck", (req, res) => {
   res.send(`Server running`);
