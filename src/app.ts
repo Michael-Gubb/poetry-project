@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
 app.use(bodyParser.text({ type: "text/html" }));
 
-app.post("/cron", (req, res) => {
+app.post("/api/cron", (req, res) => {
   if (req.body.message === "start") {
     cronJobs.resumeTestCronJobs();
     res.send("Resuming test cronjobs");
@@ -30,20 +30,20 @@ app.post("/cron", (req, res) => {
   }
 });
 
-app.use("/test", testrouter);
+app.use("/api/test", testrouter);
 
-app.use("/poems", poemRouter);
+app.use("/api/poems", poemRouter);
 
-app.get("/healthcheck", (req, res) => {
+app.get("/api/healthcheck", (req, res) => {
   res.send(`Server running`);
 });
 
-app.get("/poemtopics", (req, res) => {
+app.get("/api/poemtopics", (req, res) => {
   const poemTopics = getPoemTopics();
   res.json({ topics: poemTopics });
 });
 
-app.get("/allpoemtopics", (req, res) => {
+app.get("/api/allpoemtopics", (req, res) => {
   const poemTopics = getAllPoemTopics();
   res.json({ topics: poemTopics });
 });
