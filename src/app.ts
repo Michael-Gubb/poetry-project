@@ -5,7 +5,6 @@ import express from "express";
 import cors from "cors";
 import { testrouter } from "./testtable/testtable.router";
 import { poemRouter } from "./poem/poem.router";
-import { getPoemTopics, getAllPoemTopics } from "./utils/poem.utils";
 import * as cronJobs from "./cron/cron.controller";
 import appSetup from "./app.setup";
 
@@ -36,14 +35,4 @@ app.use("/api/poems", poemRouter);
 
 app.get("/api/healthcheck", (req, res) => {
   res.send(`Server running`);
-});
-
-app.get("/api/poemtopics", (req, res) => {
-  const poemTopics = getPoemTopics();
-  res.json({ topics: poemTopics });
-});
-
-app.get("/api/allpoemtopics", (req, res) => {
-  const poemTopics = getAllPoemTopics();
-  res.json({ topics: poemTopics });
 });
