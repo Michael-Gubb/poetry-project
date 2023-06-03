@@ -28,6 +28,7 @@ export async function askForPoem(
   poemTopics: string[] = ["Dogs", "Cats", "Fruit"],
   poemGenre: string = "poem"
 ) {
+  const modelUsed = "gpt-3.5-turbo";
   /** Fills array with Dogs,Cats,Fruits if less than 3 inputs are provided */
   const poemPromptParts = [
     poemTopics[0] || "Dogs",
@@ -37,12 +38,12 @@ export async function askForPoem(
   /** Prompt to be sent to chat completion */
   const poemPrompt = createPoemPrompt(poemPromptParts, poemGenre);
   const chatCompletionParams: ChatCompletionParams = {
-    model: "gpt-3.5-turbo",
+    model: modelUsed,
     messages: [{ role: "user", content: poemPrompt }],
   };
   const completion = await openai.createChatCompletion(chatCompletionParams);
   const response = completion.data.choices[0].message;
-  return response as PoemResponse;
+  return { message: response, model: modelUsed } as PoemResponse;
 }
 
 /**

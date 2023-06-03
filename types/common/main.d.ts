@@ -4,7 +4,10 @@ type PoemTopic = (typeof allPoemTopics)[number];
 type PoemGenre = (typeof allPoemGenres)[number];*/
 
 /** Poem response, from assistant */
-type PoemResponse = { role: "assistant"; content: string };
+type PoemResponse = {
+  message: { role: "assistant"; content: string };
+  model: ChatCompletionModel;
+};
 /**
  * Poem as stored in DB
  */

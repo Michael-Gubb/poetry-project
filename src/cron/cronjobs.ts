@@ -13,7 +13,7 @@ const everyMinute = "* * * * *";
 export const postDataWithCron = new Cron(everyHour, cronOptions, async () => {
   const poemTopics = getPoemTopics();
   const poemResponse = await askForPoem(poemTopics);
-  await postTestData(poemResponse.content);
+  await postTestData(poemResponse.message.content);
 });
 
 /** Logs a message every minute */
@@ -30,7 +30,7 @@ async function generateAndPostPoem() {
   const poemTopics = getPoemTopics();
   const poemGenre = getPoemGenre();
   const poemResponse = await askForPoem(poemTopics, poemGenre);
-  await postPoem(poemResponse.content, poemTopics, poemGenre);
+  await postPoem(poemResponse.message.content, poemTopics, poemGenre);
 }
 
 async function testJob() {
