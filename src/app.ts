@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import express from "express";
 import cors from "cors";
 import { testrouter } from "./testtable/testtable.router";
-import { poemRouter } from "./middleware/poem.router";
+import { poemRouter } from "./poem/poem.router";
 import { getPoemTopics, getAllPoemTopics } from "./utils/poem.utils";
 import * as cronJobs from "./cron/cron.controller";
 import appSetup from "./app.setup";

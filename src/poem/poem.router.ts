@@ -1,8 +1,8 @@
 import express from "express";
-import { poemRequestValidator } from "./validation.middleware";
+import { poemRequestValidator } from "../middleware/validation.middleware";
 import { transformPoemsToCamelCase } from "../utils/poem.utils";
 import { askForPoem } from "../openai/openai.request";
-import { getPoems } from "../poem/poem.repository";
+import { getPoems } from "./poem.repository";
 
 export const poemRouter = express.Router();
 
