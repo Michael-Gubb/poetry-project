@@ -18,7 +18,9 @@ poemRouter.get("/", async (req, res, next) => {
   try {
     const limitQuery = req.query.limit;
     let limit: number | null;
-    if (Array.isArray(limitQuery)) {
+    if (limitQuery === undefined) {
+      limit = DEFAULT_POEMS_LIMIT;
+    } else if (Array.isArray(limitQuery)) {
       limit = !Number.isNaN(limitQuery[0])
         ? Number(limitQuery[0])
         : DEFAULT_POEMS_LIMIT;
