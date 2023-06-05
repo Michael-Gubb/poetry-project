@@ -27,6 +27,7 @@ poemRouter.get("/", async (req, res, next) => {
         ? Number(limitQuery)
         : DEFAULT_POEMS_LIMIT;
     }
+    if (limit < 0) limit = 0;
     const poems = await getPoems(limit);
     const responseBody: ResponseToGetPoems = {
       poems: transformPoemsToCamelCase(poems),
