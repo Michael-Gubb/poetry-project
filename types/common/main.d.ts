@@ -48,6 +48,12 @@ type CamelCasePoem = {
   poemDate: string;
 };
 
+type ResponseToGetPoems = {
+  poems: CamelCasePoem[];
+  genres: readonly string[];
+  topics: readonly string[];
+};
+
 /* Open AI Types*/
 
 /**
