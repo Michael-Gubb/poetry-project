@@ -2,6 +2,7 @@ import express from "express";
 import { poemRequestValidator } from "../middleware/validation.middleware";
 import {
   getAllPoemTopics,
+  getAllPoemGenres,
   getPoemTopics,
   transformPoemsToCamelCase,
 } from "../utils/poem.utils";
@@ -11,10 +12,28 @@ import { getPoems } from "./poem.repository";
 /** Currently has GET "/", "/poemtopics", "/poemtopics/random" */
 export const poemRouter = express.Router();
 
+const DEFAULT_POEMS_LIMIT = 200;
+
 poemRouter.get("/", async (req, res, next) => {
   try {
-    const poems = await getPoems();
-    res.send({ poems: transformPoemsToCamelCase(poems) });
+    const limitQuery = req.query.limit;
+    let limit: number | null;
+    if (Array.isArray(limitQuery)) {
+      limit = !Number.isNaN(limitQuery[0])
+        ? Number(limitQuery[0])
+        : DEFAULT_POEMS_LIMIT;
+    } else {
+      limit = !Number.isNaN(limitQuery)
+        ? Number(limitQuery)
+        : DEFAULT_POEMS_LIMIT;
+    }
+    const poems = await getPoems(limit);
+    const responseBody: ResponseToGetPoems = {
+      poems: transformPoemsToCamelCase(poems),
+      topics: getAllPoemTopics(),
+      genres: getAllPoemGenres(),
+    };
+    res.send(responseBody);
   } catch (error) {
     next(error);
   }

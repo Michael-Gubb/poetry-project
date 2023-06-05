@@ -4,9 +4,15 @@ import pool from "../db";
 /**
  * Returns the contents of poem table
  */
-export async function getPoems() {
-  const getPoemsQuery = `SELECT * FROM poem;`;
-  const { rows } = await pool.query(getPoemsQuery);
+export async function getPoems(limit = 200) {
+  const getPoemsQuery = `
+  SELECT
+  poem_id,poem_text,poem_topics,poem_date,poem_img,poem_hidden,poem_genre
+  FROM poem
+  WHERE
+  poem_hidden = false
+  LIMIT $1;`;
+  const { rows } = await pool.query(getPoemsQuery, [limit]);
   return rows as Poem[];
 }
 /**
