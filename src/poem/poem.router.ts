@@ -2,6 +2,7 @@ import express from "express";
 import { poemRequestValidator } from "../middleware/validation.middleware";
 import {
   getAllPoemTopics,
+  getAllPoemGenres,
   getPoemTopics,
   transformPoemsToCamelCase,
 } from "../utils/poem.utils";
@@ -14,7 +15,12 @@ export const poemRouter = express.Router();
 poemRouter.get("/", async (req, res, next) => {
   try {
     const poems = await getPoems();
-    res.send({ poems: transformPoemsToCamelCase(poems) });
+    const responseBody: ResponseToGetPoems = {
+      poems: transformPoemsToCamelCase(poems),
+      topics: getAllPoemTopics(),
+      genres: getAllPoemGenres(),
+    };
+    res.send(responseBody);
   } catch (error) {
     next(error);
   }

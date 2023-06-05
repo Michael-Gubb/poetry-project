@@ -48,6 +48,9 @@ export const allPoemGenres = [
   "elegy",
 ] as const;
 
+type PoemTopic = (typeof allPoemTopics)[number];
+type PoemGenre = (typeof allPoemGenres)[number];
+
 /**
  * Utility function to find a random element from an array
  * @param inputArray Array of anything
@@ -88,6 +91,10 @@ export function getPoemTopics() {
     loopCounter++;
   }
   return poemTopics as string[];
+}
+
+export function getAllPoemGenres() {
+  return allPoemGenres;
 }
 
 export function getAllPoemTopics() {
