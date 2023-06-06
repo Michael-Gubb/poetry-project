@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "tsc",
+    "build": "tsc && shx cp -r ./src/client ./dist/client",
     "start": "node dist/index.js"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "@types/uuid": "^9.0.1",
     "jest": "^29.5.0",
     "nodemon": "^2.0.22",
+    "shx": "^0.3.4",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
