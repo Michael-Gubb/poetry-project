@@ -7,12 +7,8 @@ import path from "path";
 import { poemRouter } from "./poem/poem.router";
 import { adminRouter } from "./admin/admin.router";
 
-import appSetup from "./app.setup";
-
 export const app = express();
 app.use(cors());
-
-appSetup();
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
