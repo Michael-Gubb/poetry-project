@@ -1,5 +1,4 @@
 import { Cron, CronOptions } from "croner";
-import { postTestData } from "../testtable/testtable.repository";
 import { getPoemTopics, getPoemGenre } from "../utils/poem.utils";
 import { askForPoem } from "../openai/openai.request";
 import { postPoem } from "../poem/poem.repository";
@@ -8,13 +7,6 @@ const cronOptions: CronOptions = { timezone: `Pacific/Auckland`, paused: true };
 
 const everyHour = `0 * * * *`;
 const everyMinute = "* * * * *";
-
-/** Creates a new row in testtable every hour */
-export const postDataWithCron = new Cron(everyHour, cronOptions, async () => {
-  const poemTopics = getPoemTopics();
-  const poemResponse = await askForPoem(poemTopics);
-  await postTestData(poemResponse.message.content);
-});
 
 /** Logs a message every minute */
 export const testCronJob = new Cron(everyMinute, cronOptions, testJob);
@@ -27,10 +19,14 @@ export const hourlyGeneratePoem = new Cron(
 );
 
 async function generateAndPostPoem() {
-  const poemTopics = getPoemTopics();
-  const poemGenre = getPoemGenre();
-  const poemResponse = await askForPoem(poemTopics, poemGenre);
-  await postPoem(poemResponse.message.content, poemTopics, poemGenre);
+  try {
+    const poemTopics = getPoemTopics();
+    const poemGenre = getPoemGenre();
+    const poemResponse = await askForPoem(poemTopics, poemGenre);
+    await postPoem(poemResponse.message.content, poemTopics, poemGenre);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function testJob() {

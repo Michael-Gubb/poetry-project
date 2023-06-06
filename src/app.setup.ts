@@ -6,8 +6,12 @@ import * as log from "./log/log";
  * Creates poem table then starts cronjobs
  */
 export default async function appSetup() {
-  log.logSetupStarted();
-  await setupDb.createPoemTable();
-  cronJobs.resumeCronJobs();
-  log.logSetupEnded();
+  try {
+    log.logSetupStarted();
+    await setupDb.createPoemTable();
+    cronJobs.resumeCronJobs();
+    log.logSetupEnded();
+  } catch (error) {
+    console.error(error);
+  }
 }
